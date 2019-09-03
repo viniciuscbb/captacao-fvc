@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
@@ -19,50 +18,50 @@
     <form method="post">
       <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputName">Nome</label>
-            <input type="text" class="form-control" name="inputNome" id="inputNome" placeholder="Nome completo">
+            <label for="inputName">NOME</label>
+            <input type="text" class="form-control" name="inputNome" placeholder="Nome completo">
           </div>
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" name="inputEmail4" class="form-control" id="inputEmail4" placeholder="Email">
+            <label for="inputEmail4">E-MAIL</label>
+            <input type="email" name="inputEmail4" class="form-control" placeholder="Email">
               <div class="invalid-feedback">
                 <a id="erroEmail"></a>
               </div>
           </div>
           <div class="form-group col-md-6">
-            <label for="inputPassword4">Telefone</label>
-            <input type="text" class="form-control" id="inputTel" placeholder="DDD com dois dígitos">
+            <label for="inputPassword4">TELEFONE</label>
+            <input type="text" class="form-control" name="inputTel" placeholder="DDD com dois dígitos">
               <div class="invalid-feedback">
                 <a id="erroTel"></a>
               </div>
           </div>
           <div class="form-group col-md-6">
-            <label for="inputZip">CEP</label>
-            <input type="text" class="form-control" id="inputZip" placeholder="Somente numeros">
+            <label for="inputZip">ENDEREÇO CEP</label>
+            <input type="text" class="form-control" name="inputZip" placeholder="Somente numeros">
             <div class="invalid-feedback">
                 <a id="erroZip"></a>
               </div>
           </div>
         </div>
             <div class="form-group">
-              <label for="inputAddress">Endereço</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Rua, Bairro">
+              <label for="inputAddress">RUA E BAIRRO</label>
+              <input type="text" class="form-control" name="inputAddress" placeholder="Rua, Bairro">
             </div>      
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputCity">Cidade</label>
-            <input type="text" class="form-control" id="inputCity" placeholder="Cidade onde mora">
+            <label for="inputCity">CIDADE</label>
+            <input type="text" class="form-control" name="inputCity" placeholder="Cidade onde mora">
           </div>
 
           <div class="form-group col-md-6">
-            <label for="inputState">Estado</label>
-            <input type="text" class="form-control" id="inputState" placeholder="Estado onde mora">
+            <label for="inputState">ESTADO</label>
+            <input type="text" class="form-control" name="inputState" placeholder="Estado onde mora">
           </div>
         
         <div class="form-group col-md">
-        <label for="inputState">Curso desejado</label>
-          <select class="form-control">
-            <option>Selecione o curso desejado</option>
+        <label for="inputState">CURSO DESEJADO</label>
+          <select class="form-control" name="selectCursoDesejado">
+            <option>SELECIONE O CURSO DESEJADO</option>
             <option>ADMINISTRAÇÃO</option>
             <option>ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</option>
             <option>ARQUITETURA & URBANISMO</option>
@@ -82,7 +81,7 @@
           </div>
         </div>
         <div class="form-group">    
-        <button type="submit" name="enviar" class="btn btn-primary btn-lg">Enviar</button>
+        <button type="submit" name="enviar" class="btn btn-primary btn-lg">ENVIAR</button>
       </div>
     </form>
 </div>
@@ -115,15 +114,34 @@
   <script src="./javascript/scripts.js"></script>
   
 <?php
-$emailSalvo = "teste@gmail.com";
 
-if (isset($_POST['enviar'])){
-  $email=$_POST['inputEmail4'];
-  if ($email == $emailSalvo){ 
-    echo "<script>mudaInput(true);</script>";
+function conection(){
+  include('config.php');
+  $conection = new mysqli($host, $username, $password, $db_name);
+  if (!$conection) {
+    die("Não foi possível conectar ao banco de dados" . mysqli_connect_error());
+  }else{
+    return $conection;
   }
 }
 
+if (isset($_POST['enviar'])){
+  if(!checkEmail()){ //Verifica se o email não existe
+    echo "email não existe";
+  }
+}
+
+function checkEmail(){
+  $conection = conection();
+  $email=$_POST['inputEmail4'];
+  $query = mysqli_query($conection, "SELECT * FROM cadastros WHERE email='$email'");
+  if(mysqli_num_rows($query) >= 1){
+    echo "<script>mudaInput(true);</script>";
+    return true;
+  }else{
+    return false;
+  }
+}
 ?>
 </body>
 </html>
