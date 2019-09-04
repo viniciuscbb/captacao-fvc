@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Captação FVC</title>
@@ -19,25 +19,25 @@
       <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputName">NOME</label>
-            <input type="text" class="form-control" name="inputNome" placeholder="Nome completo">
+            <input type="text" class="form-control" name="inputNome" placeholder="Nome completo" required>
           </div>
           <div class="form-group col-md-6">
             <label for="inputEmail4">E-MAIL</label>
-            <input type="email" name="inputEmail4" class="form-control" placeholder="Email">
+            <input type="email" name="inputEmail4" class="form-control" placeholder="Email" required>
               <div class="invalid-feedback">
                 <a id="erroEmail"></a>
               </div>
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">TELEFONE</label>
-            <input type="text" class="form-control" name="inputTel" placeholder="DDD com dois dígitos">
+            <input type="text" class="form-control" name="inputTel" placeholder="DDD com dois dígitos" required>
               <div class="invalid-feedback">
                 <a id="erroTel"></a>
               </div>
           </div>
           <div class="form-group col-md-6">
             <label for="inputZip">ENDEREÇO CEP</label>
-            <input type="text" class="form-control" name="inputZip" placeholder="Somente numeros">
+            <input type="text" class="form-control" name="inputZip" placeholder="Somente numeros" required>
             <div class="invalid-feedback">
                 <a id="erroZip"></a>
               </div>
@@ -45,17 +45,17 @@
         </div>
             <div class="form-group">
               <label for="inputAddress">RUA E BAIRRO</label>
-              <input type="text" class="form-control" name="inputAddress" placeholder="Rua, Bairro">
+              <input type="text" class="form-control" name="inputAddress" placeholder="Rua, Bairro" required>
             </div>      
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputCity">CIDADE</label>
-            <input type="text" class="form-control" name="inputCity" placeholder="Cidade onde mora">
+            <input type="text" class="form-control" name="inputCity" placeholder="Cidade onde mora" required>
           </div>
 
           <div class="form-group col-md-6">
             <label for="inputState">ESTADO</label>
-            <input type="text" class="form-control" name="inputState" placeholder="Estado onde mora">
+            <input type="text" class="form-control" name="inputState" placeholder="Estado onde mora" required>
           </div>
         
         <div class="form-group col-md">
@@ -114,32 +114,29 @@
   <script src="./javascript/scripts.js"></script>
   
 <?php
-
-function conection(){
-  include('config.php');
-  $conection = new mysqli($host, $username, $password, $db_name);
-  if (!$conection) {
-    die("Não foi possível conectar ao banco de dados" . mysqli_connect_error());
-  }else{
-    return $conection;
-  }
-}
+include('send.php');
 
 if (isset($_POST['enviar'])){
-  if(!checkEmail()){ //Verifica se o email não existe
-    echo "email não existe";
-  }
-}
-
-function checkEmail(){
-  $conection = conection();
+  $nome=$_POST['inputNome'];
   $email=$_POST['inputEmail4'];
-  $query = mysqli_query($conection, "SELECT * FROM cadastros WHERE email='$email'");
-  if(mysqli_num_rows($query) >= 1){
-    echo "<script>mudaInput(true);</script>";
-    return true;
+  $telefone=$_POST['inputTel'];
+  $cep=$_POST['inputZip'];
+  $endereco=$_POST['inputAddress'];
+  $cidade=$_POST['inputCity'];
+  $estado=$_POST['inputState'];
+  $curso=setCurso($_POST['selectCursoDesejado']);
+
+  date_default_timezone_set('America/Sao_Paulo');
+  $data_criacao =  date('Y-m-d H:i');
+  
+  if(!checkEmail($email)){ //Verifica se o email não existe
+    if(sendToDB($nome, $email, $telefone, $cep, $endereco, $cidade, $estado, $curso, $data_criacao)){
+      //Salvo com sucesso!
+    }else{
+      //Salvo com sucesso!
+    }
   }else{
-    return false;
+    echo "<script>mudaInput(true);</script>";
   }
 }
 ?>
