@@ -33,56 +33,46 @@ function sendToDB($nome, $email, $telefone, $cep, $endereco, $cidade, $estado, $
   }
 }
 
-function setCurso($curso){
-  switch ($curso){
-    case "ADMINISTRAÇÃO":
-      return 1;
-      break;
-    case "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS":
-      return 2;
-      break;
-    case "ARQUITETURA & URBANISMO":
-      return 3;
-      break;
-    case "CIÊNCIAS CONTÁBEIS":
-      return 4;
-      break;
-    case "COMUNICAÇÃO SOCIAL":
-      return 5;
-      break;
-    case "DIREITO":
-      return 6;
-      break;
-    case "EDUCAÇÃO FÍSICA":
-      return 7;
-      break;
-    case "ENFERMAGEM":
-      return 8;
-      break;
-    case "ENGENHARIA AMBIENTAL E SANITÁRIA":
-      return 9;
-      break;
-    case "ENGENHARIA DE PRODUÇÃO":
-      return 10;
-      break;
-    case "ENGENHARIA MECÂNICA":
-      return 11;
-      break;
-    case "FISIOTERAPIA":
-      return 12;
-      break;
-    case "HISTÓRIA":
-      return 13;
-      break;
-    case "PEDAGOGIA":
-      return 14;
-      break;
-    case "PSICOLOGIA":
-      return 15;
-      break;
-    default:
-      return 0;
+function updateToDB($userID, $nome, $email, $telefone, $cep, $endereco, $cidade, $estado, $curso){
+  $conection = conection();
+  $sql = "UPDATE cadastros SET nome='$nome', email='$email', telefone='$telefone', cep='$cep', endereco='$endereco', cidade='$cidade', estado='$estado', curso_id='$curso'
+          WHERE id='$userID'";
+  if(mysqli_query($conection, $sql)){
+    return true;
+  }else{
+    return false;
   }
+}
+
+function deleteFromDB($userID){
+  $conection = conection();
+  $sql = "DELETE FROM cadastros WHERE id = '$userID'";
+  
+  if(mysqli_query($conection, $sql)){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function setCurso($curso){
+  if($curso == "SELECIONE O CURSO DESEJADO"){
+    return 0;
+  }else{
+    $conection = conection();
+    $query = mysqli_query($conection, "SELECT id FROM cursos WHERE nome='$curso'");
+    $row = mysqli_fetch_array($query);
+    $curso = $row['id'];
+    return $curso;
+  }
+}
+
+function getCurso($curso_id){
+  $conection = conection();
+  $query = mysqli_query($conection, "SELECT nome FROM cursos WHERE id='$curso_id'");
+  $row = mysqli_fetch_array($query);
+  $curso = $row['nome'];
+  return $curso;
 }
 
 ?>

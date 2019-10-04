@@ -1,5 +1,43 @@
-<!DOCTYPE html>
+<?php
+include('send.php');
+$mudaInput = "";
+$mensagem = "";
+if (isset($_POST['enviar'])){
+  $nome=$_POST['inputNome'];
+  $email=$_POST['inputEmail4'];
+  $telefone=$_POST['inputTel'];
+  $cep=$_POST['inputZip'];
+  $endereco=$_POST['inputAddress'];
+  $cidade=$_POST['inputCity'];
+  $estado=$_POST['inputState'];
+  $curso=setCurso($_POST['selectCursoDesejado']);
 
+  date_default_timezone_set('America/Sao_Paulo');
+  $data_criacao =  date('Y-m-d H:i:s');
+  
+  if(!checkEmail($email)){ //Verifica se o email não existe
+    if(sendToDB($nome, $email, $telefone, $cep, $endereco, $cidade, $estado, $curso, $data_criacao)){
+      $mensagem = "<div class='alert alert-success' role='alert'>
+        <h4 class='alert-heading'>Muito bem!</h4>
+        <p>Seus dados foram cadastrados com sucesso.</p>
+        <hr>
+        <p class='mb-0'>Em breve entraremos em contato com você.</p>
+        </div>";
+    }else{
+      $mensagem = "<div class='alert alert-danger' role='alert'>
+        <h4 class='alert-heading'>Ops!</h4>
+        <p>Erro ao tentar cadastrar seus dados.</p>
+        <hr>
+        <p class='mb-0'>Por favor, tente novamente mais tarde.</p>
+        </div>";
+    }
+  }else{
+    $mudaInput = "<script>mudaInput(true);</script>";
+  }
+}
+?>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -14,8 +52,13 @@
     <img src="./images/fvclogo.png" alt="Logo FVC">
     <a>Captação Faculdade Vale do Cricaré</a>
   </div>
+  
 <section class="content shadow-lg p-3 mb-5 ">
+    <?php 
+      echo $mensagem; 
+    ?>
     <form method="post">
+    
       <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputName">NOME</label>
@@ -30,14 +73,14 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">TELEFONE</label>
-            <input type="text" class="form-control" name="inputTel" placeholder="DDD com dois dígitos" required>
+            <input type="text" class="form-control" name="inputTel" placeholder="__ _____-____" required>
               <div class="invalid-feedback">
                 <a id="erroTel"></a>
               </div>
           </div>
           <div class="form-group col-md-6">
             <label for="inputZip">ENDEREÇO CEP</label>
-            <input type="text" class="form-control" name="inputZip" placeholder="Somente numeros" required>
+            <input type="text" class="form-control" name="inputZip" placeholder="____-___" required>
             <div class="invalid-feedback">
                 <a id="erroZip"></a>
               </div>
@@ -112,33 +155,9 @@
 <!-- Footer -->
   <script src="bootstrap/js/bootstrap.min.js"></script>
   <script src="./javascript/scripts.js"></script>
-  
+
 <?php
-include('send.php');
-
-if (isset($_POST['enviar'])){
-  $nome=$_POST['inputNome'];
-  $email=$_POST['inputEmail4'];
-  $telefone=$_POST['inputTel'];
-  $cep=$_POST['inputZip'];
-  $endereco=$_POST['inputAddress'];
-  $cidade=$_POST['inputCity'];
-  $estado=$_POST['inputState'];
-  $curso=setCurso($_POST['selectCursoDesejado']);
-
-  date_default_timezone_set('America/Sao_Paulo');
-  $data_criacao =  date('Y-m-d H:i');
-  
-  if(!checkEmail($email)){ //Verifica se o email não existe
-    if(sendToDB($nome, $email, $telefone, $cep, $endereco, $cidade, $estado, $curso, $data_criacao)){
-      //Salvo com sucesso!
-    }else{
-      //Salvo com sucesso!
-    }
-  }else{
-    echo "<script>mudaInput(true);</script>";
-  }
-}
+    echo $mudaInput;
 ?>
 </body>
 </html>

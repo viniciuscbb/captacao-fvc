@@ -1,4 +1,4 @@
-var inputTel = document.getElementById('inputTel');
+var inputTel = document.querySelector('input[name=inputTel]');
 inputTel.setAttribute('maxlength', '13');
 inputTel.onkeypress = function(){
   mascara(this, '## #####-####');
@@ -13,9 +13,9 @@ let erroTel = document.getElementById('erroTel');
   }
 }
 function mascara(t, mask){
-  var i = t.value.length;
-  var saida = mask.substring(1,0);
-  var texto = mask.substring(i)
+  let i = t.value.length;
+  let saida = mask.substring(1,0);
+  let texto = mask.substring(i)
   if (texto.substring(0,1) != saida){
   t.value += texto.substring(0,1);
   }
@@ -25,12 +25,12 @@ let botao = document.getElementById("botaoadm").onclick = function(){
   window.location = ('./admin/login.php');
 }
 
-let inputNome = document.getElementById('inputNome');
+let inputNome = document.querySelector('input[name=inputNome]');
 inputNome.onblur = function(){
   inputNome.setAttribute('class', 'form-control is-valid');
 }
 
-var emailInput = document.getElementById('inputEmail4');
+var emailInput = document.querySelector('input[name=inputEmail4]');
 emailInput.onkeypress = function() {mudaInput(false);}
 
 function mudaInput(valor){
@@ -44,17 +44,25 @@ function mudaInput(valor){
   }
 }
 
+var inputZip = document.querySelector('input[name=inputZip]');
+inputZip.setAttribute('maxlength', '9');
+inputZip.onblur = function(){
+  getCep(inputZip.value);
+}
+inputZip.onkeypress = function(){
+  mascara(this, '#####-###');
+}
+
 async function getCep(endereco) {
-  let inputZip = document.getElementById('inputZip');
   let erroZip = document.getElementById('erroZip');
   try {
     const response = await axios.get(`https://viacep.com.br/ws/${endereco}/json/`);
-    const {bairro, cep, localidade, logradouro, uf} = response.data;
+    const {bairro, localidade, logradouro, uf} = response.data;
 
     inputZip.setAttribute('class', 'form-control is-valid');
     erroZip.innerText = ('');
     
-    setCep(bairro, cep, localidade, logradouro, uf);
+    setCep(bairro, localidade, logradouro, uf);
   } catch (error) {
     
     inputZip.setAttribute('class', 'form-control is-invalid');
@@ -62,22 +70,11 @@ async function getCep(endereco) {
   }
 }
 
-var buscarCep = document.getElementById('inputZip')
-buscarCep.onblur = function(){
-  getCep(buscarCep.value);
-}
-
-function setCep(bairro, cep, localidade, logradouro, uf){
-  let inputAddress = (document.getElementById('inputAddress').value = `${logradouro}, Bairro ${bairro}`, 
-    (document.getElementById('inputAddress').setAttribute('class', 'form-control is-valid')));
-  let inputCity = (document.getElementById('inputCity').value = localidade, 
-    (document.getElementById('inputCity').setAttribute('class', 'form-control is-valid')));
-  let inputState = (document.getElementById('inputState').value = uf, 
-    (document.getElementById('inputState').setAttribute('class', 'form-control is-valid')));
-}
-
-var botaoteste = document.getElementById('botaoteste').onclick = function(){
-  $('#meuModal').modal(options);
-  $('#meuModal').modal('show');
-
+function setCep(bairro, localidade, logradouro, uf){
+  let inputAddress = (document.querySelector('input[name=inputAddress]').value = `${logradouro}, Bairro ${bairro}`, 
+    (document.querySelector('input[name=inputAddress]').setAttribute('class', 'form-control is-valid')));
+  let inputCity = (document.querySelector('input[name=inputCity]').value = localidade, 
+    (document.querySelector('input[name=inputCity]').setAttribute('class', 'form-control is-valid')));
+  let inputState = (document.querySelector('input[name=inputState]').value = uf, 
+    (document.querySelector('input[name=inputState]').setAttribute('class', 'form-control is-valid')));
 }

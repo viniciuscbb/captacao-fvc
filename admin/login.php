@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <?php
+	@session_start();
+	unset($_SESSION['admin']);
 	$Message = "";
 	if (isset($_POST['Login'])){
-		@session_start();
 		$myusername=$_POST['username'];
 		$mypassword=$_POST['password'];
 
 		if($myusername=='admin' and $mypassword== 'admin'){
-			$_SESSION['username']=true;
+			$_SESSION['admin']=true;
 			header("location: index.php");
 		} else {	
 			$Message ="<div class='alert alert-danger alert-dismissible'>
