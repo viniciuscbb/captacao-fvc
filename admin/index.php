@@ -19,7 +19,36 @@ include('../send.php');
     <a>Painel Administrativo</a>
   </div>
   
-<section class="content shadow-lg p-3 mb-5 ">
+<section class="content shadow-lg p-2 mb-5 ">
+  <form method="post">
+    <div class="form-row ">
+      <a class="navbar-brand mx-sm-2">Pesquisar</a>
+      <div class="col-md-4 mb-2">
+        <input class="form-control" type="search" placeholder="Nome" aria-label="Nome" name="nomePesquisa">
+      </div>
+      <div class="col-md-5 mb-2">
+        <select class="form-control" name="cursoSelecionado">
+              <option>SELECIONE O CURSO DESEJADO</option>
+              <option>ADMINISTRAÇÃO</option>
+              <option>ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</option>
+              <option>ARQUITETURA & URBANISMO</option>
+              <option>CIÊNCIAS CONTÁBEIS</option>
+              <option>COMUNICAÇÃO SOCIAL</option>
+              <option>DIREITO</option>
+              <option>EDUCAÇÃO FÍSICA</option>
+              <option>ENFERMAGEM</option>
+              <option>ENGENHARIA AMBIENTAL E SANITÁRIA</option>
+              <option>ENGENHARIA DE PRODUÇÃO</option>
+              <option>ENGENHARIA MECÂNICA</option>
+              <option>FISIOTERAPIA</option>
+              <option>HISTÓRIA</option>
+              <option>PEDAGOGIA</option>
+              <option>PSICOLOGIA</option>
+          </select>
+      </div>
+        <button type="submit" name="pesquisar" class="btn btn-outline-success mb-2">Pesquisar</button>
+    </div>
+  </form>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -33,30 +62,16 @@ include('../send.php');
     </tr>
   </thead>
   <tbody>
-  <?php
-$conection = conection();
-$query = mysqli_query($conection, "SELECT * FROM cadastros order by nome");
-while($row = mysqli_fetch_array($query)){
-	
-	$id = $row['id'];
-	$nome = $row['nome'];
-	$telefone = $row['telefone'];
-	$email = $row['email'];
-	$cidade = $row['cidade'];
-	$estado = $row['estado'];
-	$curso = getCurso($row['curso_id']);
-  echo '<tr>
-          <th scope="row">'.$id.'</th>
-            <td>'.$nome.'</td>
-            <td>'.$telefone.'</td>
-            <td>'.$email.'</td>
-            <td>'.$cidade.' - '.$estado.'</td>
-            <td>'.$curso.'</td>
-            <td><a href="editar.php?id='.$id.'" title="Clique aqui para editar">
-                <span class="badge badge-info">EDITAR</span></a></td>
-        </tr>';
-}
-?> 
+    <?php
+
+      if (isset($_POST['pesquisar'])){
+        $nome=$_POST['nomePesquisa'];
+        $curso=setCurso($_POST['cursoSelecionado']);
+        echo mostraLista(1, $nome, $curso);  //1 para pesquisa
+      }else{
+        echo mostraLista(2, null, null);  //2 para consulta normal
+      }
+  ?> 
   </tbody>
 </table>
 </section>

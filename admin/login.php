@@ -25,7 +25,7 @@
   <title>Administração - Captação FVC</title>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/login.css">
-  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="shortcut icon" href="../images/favicon.ico" />
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../script/jquery.js"></script>
 </head>

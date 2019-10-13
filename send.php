@@ -75,4 +75,40 @@ function getCurso($curso_id){
   return $curso;
 }
 
+function mostraLista($metodo, $nome, $curso){
+  $conection = conection();
+  if($metodo == 1){
+    if($curso == 0){
+      $query = mysqli_query($conection, "SELECT * FROM cadastros where nome like '".$nome."%' order by id");
+    }else if($nome == null){
+      $query = mysqli_query($conection, "SELECT * FROM cadastros where curso_id = '$curso' order by id");
+    }else{
+      $query = mysqli_query($conection, "SELECT * FROM cadastros where nome like '".$nome."%' and curso_id = '$curso' order by id");
+    }
+    
+  }else{
+    $query = mysqli_query($conection, "SELECT * FROM cadastros order by id");
+  }
+  while($row = mysqli_fetch_array($query)){
+    $id = $row['id'];
+    $nome = $row['nome'];
+    $telefone = $row['telefone'];
+    $email = $row['email'];
+    $cidade = $row['cidade'];
+    $estado = $row['estado'];
+    $curso = getCurso($row['curso_id']);
+    echo '<tr>
+            <th scope="row">'.$id.'</th>
+              <td>'.$nome.'</td>
+              <td>'.$telefone.'</td>
+              <td>'.$email.'</td>
+              <td>'.$cidade.' - '.$estado.'</td>
+              <td>'.$curso.'</td>
+              <td><a href="editar.php?id='.$id.'" title="Clique aqui para editar">
+                  <span class="badge badge-info">EDITAR</span></a></td>
+          </tr>';
+  }
+}
+
+
 ?>

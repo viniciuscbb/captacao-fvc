@@ -1,6 +1,6 @@
 body {
-  color: #4e4e4e;
-  background: #e2e2e2;
+  color: #2f3542;
+  background: url("../images/tela.png") no-repeat 50% 30%;
   font-family: 'Roboto', sans-serif;
 }
   .form-control {
