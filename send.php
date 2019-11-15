@@ -90,17 +90,17 @@ function mostraLista($metodo, $nome, $curso){
     $query = mysqli_query($conection, "SELECT * FROM cadastros order by id");
   }
   while($row = mysqli_fetch_array($query)){
-    $id = $row['id'];
-    $nome = $row['nome'];
+    $id       = $row['id'];
+    $nome     = $row['nome'];
     $telefone = $row['telefone'];
-    $email = $row['email'];
-    $cidade = $row['cidade'];
-    $estado = $row['estado'];
-    $curso = getCurso($row['curso_id']);
+    $email    = $row['email'];
+    $cidade   = $row['cidade'];
+    $estado   = $row['estado'];
+    $curso    = getCurso($row['curso_id']);
     echo '<tr>
             <th scope="row">'.$id.'</th>
               <td>'.$nome.'</td>
-              <td>'.$telefone.'</td>
+              <td style="white-space: nowrap">'.$telefone.'</td>
               <td>'.$email.'</td>
               <td>'.$cidade.' - '.$estado.'</td>
               <td>'.$curso.'</td>
@@ -109,6 +109,4 @@ function mostraLista($metodo, $nome, $curso){
           </tr>';
   }
 }
-
-
 ?>

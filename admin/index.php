@@ -49,7 +49,7 @@ include('../send.php');
         <button type="submit" name="pesquisar" class="btn btn-outline-success mb-2">Pesquisar</button>
     </div>
   </form>
-<table class="table table-hover">
+<table class="table table-hover" id="tabela">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -58,7 +58,7 @@ include('../send.php');
       <th scope="col">E-MAIL</th>
       <th scope="col">CIDADE/ESTADO</th>
       <th scope="col">CURSO</th>
-      <th scope="col">AÇÕES</th>
+      <th scope="col" id="acoes">AÇÕES</th>
     </tr>
   </thead>
   <tbody>
@@ -74,6 +74,7 @@ include('../send.php');
   ?> 
   </tbody>
 </table>
+  <button type="button" style="margin-left: 45%" id="imprimir" class="btn btn-outline-success mb-2">Imprimir lista</button>
 </section>
 <!-- Footer -->
 <footer>
@@ -99,5 +100,6 @@ include('../send.php');
 </footer>
 <!-- Footer -->
   <script src="../bootstrap/js/bootstrap.min.js"></script>
+  <script src="../javascript/imprimir.js"></script>
 </body>
 </html>       
