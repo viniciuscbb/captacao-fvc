@@ -1,7 +1,7 @@
 var imprimir = document.getElementById('imprimir');
 imprimir.onclick = function(){
   destroi();
-  window.print(tabela);
+  window.print();
   window.location.reload();
 }
 
@@ -25,7 +25,6 @@ function destroi(){
   imprimir.style.display = 'none';
   footer.style.display = 'none';
   acoes.style.display = 'none';
-  //editar.style.display = 'none';
   
   for(id = 0; id<document.querySelectorAll('span.badge-info').length; id++){
     var remove = document.querySelectorAll('span.badge-info')[id];
