@@ -143,7 +143,8 @@ if (isset($_POST['voltar'])){
 <body>
   <div class="logo">
     <img src="../images/fvclogo.png" alt="Logo FVC">
-    <a>Editar dados</a>
+    <a style="margin-left: 251px">Editar dados</a>
+    <img src="../images/logocerta_transparente.png" style="margin-left: 175px" width="250" height="70" alt="Logo TeckDevel">
   </div>
   
 <section class="content shadow-lg p-3 mb-5 ">

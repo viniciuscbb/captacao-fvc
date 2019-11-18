@@ -12,11 +12,13 @@ include('../send.php');
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="shortcut icon" href="../images/favicon.ico" />
+  
 </head>
 <body>
   <div class="logo">
     <img src="../images/fvclogo.png" alt="Logo FVC">
-    <a>Painel Administrativo</a>
+    <a style="margin-left: 169px">Painel Administrativo</a>
+    <img src="../images/logocerta_transparente.png" style="margin-left: 125px" width="250" height="70" alt="Logo TeckDevel">
   </div>
   
 <section class="content shadow-lg p-2 mb-5 ">
