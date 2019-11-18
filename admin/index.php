@@ -93,6 +93,7 @@ include('../send.php');
            </ul>
 						<div class="copyright">
               <p>&copy <span>2019</span> <a href="https://ivc.br" target="_blank" class="transition">FVC – Faculdade Vale do Cricaré</a> Todos os direitos reservados.</p>
+              <button id="botaovoltar" type="button" class="btn btn-outline-light">Página de Cadastro</button>
 						</div>
 					</div>
 				</div>
@@ -103,5 +104,11 @@ include('../send.php');
 <!-- Footer -->
   <script src="../bootstrap/js/bootstrap.min.js"></script>
   <script src="../javascript/imprimir.js"></script>
+  <script>
+  let botao2 = document.getElementById("botaovoltar").onclick = function(){
+    window.location.href=('../index.php');
+  }
+</script>
+
 </body>
 </html>       

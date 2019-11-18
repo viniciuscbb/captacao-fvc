@@ -48,9 +48,10 @@ if (isset($_POST['enviar'])){
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-  <div class="logo">
+<div class="logo">
     <img src="./images/fvclogo.png" alt="Logo FVC">
-    <a>Captação Faculdade Vale do Cricaré</a>
+    <a style="margin-left: 30px">Captação Faculdade Vale do Cricaré</a>
+    <img src="./images/logocerta_transparente.png" style="margin-left: 10px" width="250" height="70" alt="Logo TeckDevel">
   </div>
   
 <section class="content shadow-lg p-3 mb-5 ">
